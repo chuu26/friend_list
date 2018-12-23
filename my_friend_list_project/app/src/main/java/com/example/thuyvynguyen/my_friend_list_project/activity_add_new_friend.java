@@ -127,8 +127,8 @@ public class activity_add_new_friend extends AppCompatActivity implements DatePi
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         day = dayOfMonth;
-        this.month = month;
+        this.month = month + 1;
         this.year = year;
-        btnDateTime.setText(day + "/" + month + "/" +year);
+        btnDateTime.setText(day + "/" + this.month + "/" + this.year);
     }
 }
