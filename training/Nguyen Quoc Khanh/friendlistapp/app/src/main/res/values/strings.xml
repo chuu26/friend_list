@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">my_friend_list_project</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+</resources>
