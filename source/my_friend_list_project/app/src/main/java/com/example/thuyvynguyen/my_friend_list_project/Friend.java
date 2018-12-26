@@ -18,6 +18,10 @@ public class Friend {
                 "sex: " + sex;
     }
 
+    public Date getDate(){
+        return date;
+    }
+
     public Person getPerson(){
         return person;
     }

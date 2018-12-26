@@ -38,7 +38,6 @@ public class activity_add_new_friend extends AppCompatActivity implements DatePi
         Radiation();
         putValueToSpinner();
 
-
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,8 +126,11 @@ public class activity_add_new_friend extends AppCompatActivity implements DatePi
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         day = dayOfMonth;
-        this.month = month + 1;
+        this.month = month;
         this.year = year;
         btnDateTime.setText(day + "/" + this.month + "/" + this.year);
     }
+
+
+
 }

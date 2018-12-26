@@ -1,11 +1,18 @@
 package com.example.thuyvynguyen.my_friend_list_project;
 
+import android.app.AlarmManager;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,14 +29,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Friend> arrayFriend = new ArrayList<>();
     ArrayList<Friend> arrayMale = new ArrayList<>();
     ArrayList<Friend> arrayFemale = new ArrayList<>();
+    ArrayList<String> arrayUpcomingBirthday = new ArrayList<>();
 
     ListView listFriend;
     Button btnAddNewFriend;
@@ -48,11 +59,15 @@ public class MainActivity extends AppCompatActivity {
     Friend friend;
 
     Spinner spinner_sort;
+    ListView listViewUpcomingBirthday;
+
+    String currentDay;//get the current day to know who's birthday in 7 days
+    Calendar calendar = Calendar.getInstance();//Import to use when ever need Calendar
+    Dialog dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         listFriend = (ListView) findViewById(R.id.listFriend);
 
@@ -60,14 +75,13 @@ public class MainActivity extends AppCompatActivity {
         //handle event btn Click and intent to activity add new friend
         btnClickAndIntent();
 
-
         putValueToSpinner();
 
-
-
-
+        dialog = new Dialog(MainActivity.this);
     }
 
+    //When button click is clicked
+    //Open activity add new friend
     public void btnClickAndIntent(){
 
         btnAddNewFriend = (Button) findViewById(R.id.btnAddNewFriend);
@@ -92,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
             day = data.getIntExtra("day", 1);
             month = data.getIntExtra("month", 1);
             year = data.getIntExtra("year", 2000);
-            date =  new Date(day, month, year);
+            date =  new Date(day  +0, month + 1, year + 0);//Month start from 0(January = 0)
 
             firstName   = data.getStringExtra("firstName");
             middleName  = data.getStringExtra("middleName");
@@ -103,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
             friend = new Friend(person, date, sex);
 
-            //Add friend vao tung array male va female tuong ung
+            //Add friend follow their sex
             if ("Male".contains(sex)){
                 arrayMale.add(friend);
             }
@@ -113,25 +127,67 @@ public class MainActivity extends AppCompatActivity {
 
             arrayFriend.add(friend);
 
-            Collections.sort(arrayFriend, new Comparator<Friend>() {
+            Collections.sort(arrayFriend,
+                    new Comparator<Friend>() {
                 @Override
                 public int compare(Friend o1, Friend o2) {
                     return o1.getPerson().getFirstName().compareToIgnoreCase(o2.getPerson().getFirstName());
                 }
             });
 
-            //De de dang tuy chinh arrayList vao adapter
+            //To easy put data to ListView
             setAdapter(arrayFriend);
+
+            int tempDay = calendar.get(Calendar.DAY_OF_MONTH);
+            int tempMonth = calendar.get(Calendar.MONTH) + 1;
+
+            //Test is my code is true =))
+            if (arrayFriend.get(0).getDate().getDay() == tempDay &&
+                    arrayFriend.get(0).getDate().getMonth() == tempMonth){
+                Toast.makeText(this, "Today is " + arrayFriend.get(0).getPerson().getFirstName() + "'s birthday", Toast.LENGTH_SHORT).show();
+            }
+            /*for(int i=0; i < arrayFriend.size(); i++){
+
+                if (arrayFriend.get(i).getDate().getDay() == tempDay &&
+                        arrayFriend.get(i).getDate().getMonth() == tempMonth){
+                    arrayUpcomingBirthday.add("Today is " + arrayFriend.get(i).getPerson().getFirstName() + "'s birthday");
+                } else {
+
+                    for(int j=1; j <= 7; j++){   //Check whether anyone have birthday in next 7 days
+
+                        if (arrayFriend.get(i).getDate().getDay() == tempDay + j &&
+                                arrayFriend.get(i).getDate().getMonth() == calendar.get(Calendar.MONTH) + 1){
+                            arrayUpcomingBirthday.add( arrayFriend.get(i).getPerson().getFirstName() +
+                                    "'s birthday coming in" + j + "days" );
+                        }
+
+                    }
+                }
+
+            }
+
+            dialog.setContentView(R.layout.dialog_notification);
+            dialog.setTitle("Notification");
+            listViewUpcomingBirthday = (ListView) dialog.findViewById(R.id.listViewUpcomingBirthday);
+            ArrayAdapter<String> adapterDialog = new ArrayAdapter<>(MainActivity.this,
+                    R.layout.dialog_notification, arrayUpcomingBirthday );
+            listViewUpcomingBirthday.setAdapter(adapterDialog);
+            dialog.show();
+            */
+
+
         }
 
     }
 
+    //Set the listview follow kind of friend: male, female, abc
     public void setAdapter(ArrayList<Friend> arrFriend){
         adapter = new ArrayAdapter<>(MainActivity.this,
                 android.R.layout.simple_list_item_1, arrFriend);
         listFriend.setAdapter(adapter);
     }
 
+    //Put data to spinner
     String key;
     public void putValueToSpinner(){
         spinner_sort = findViewById(R.id.spinner_sort);
@@ -168,36 +224,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*@Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
 
-        getMenuInflater().inflate(R.menu.options_long_click, menu);
+    public void showDialogEvent(){
+        dialog = new Dialog(MainActivity.this);
+        dialog.setContentView(R.layout.dialog_notification);
+        dialog.setTitle("Notification");
+        listViewUpcomingBirthday = (ListView) dialog.findViewById(R.id.listViewUpcomingBirthday);
+        dialog.show();
+
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
-            case R.id.option_delete:
-                arrayFriend.remove(1);
-                break;
-
-            default: return super.onContextItemSelected(item);
-        }
-    }*/
-
-    /*public void notification(){
-
-        NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        Notification notify=new Notification.Builder
-                (getApplicationContext()).setContentTitle(tittle).setContentText(body).
-                setContentTitle(subject).setSmallIcon(R.drawable.ic_launcher_foreground.build();
-
-        notify.flags |= Notification.FLAG_AUTO_CANCEL;
-        notif.notify(0, notify);
-
-    }*/
 
 }
 

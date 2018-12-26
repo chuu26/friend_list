@@ -4,33 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#99daf3"
-    android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:gravity="center_horizontal"
     tools:context=".activity_add_new_friend">
 
-    <ImageView
-        android:id="@+id/imageView2"
+    <TextView
+        android:gravity="center_horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="false"
-        android:background="@color/colorPrimary"
-        android:cropToPadding="false"
-        app:srcCompat="@android:drawable/ic_menu_edit" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="136dp"
-        android:drawableBottom="@android:drawable/ic_menu_myplaces"
-        android:drawableTop="@color/colorPrimaryDark"
-        android:fontFamily="@android:string/dialog_alert_title"
-        android:gravity="center_vertical|center_horizontal"
         android:text="Insert your new friend"
-        android:textColor="#040404"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        tools:drawableBottom="@android:drawable/btn_star_big_on"
-        tools:drawableTop="@color/colorPrimary" />
+        android:textSize="30sp"
+        android:textColor="@color/colorAccent"/>
 
     <TableRow
         android:layout_width="match_parent"
@@ -39,21 +23,17 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:text="First name: "
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="15dp"
-            android:textStyle="bold"
-            tools:paddingLeft="10dp" />
+            android:textColor="@color/colorAccent"
+            android:text="First name: "/>
 
         <EditText
             android:id="@+id/edtFirstName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-
+            android:hint="Enter your friend's first name"
             android:layout_weight="1"
-            android:hint="Enter your friend's first name" />
+
+            />
 
     </TableRow>
 
@@ -64,19 +44,16 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Middle name: "
-            android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold" />
+            android:textColor="@color/colorAccent"
+            android:text="Middle name: "/>
 
         <EditText
             android:id="@+id/edtMiddleName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
+            android:hint="Enter your friend's middle name"
             android:layout_weight="1"
-            android:hint="Enter your friend's middle name" />
+            />
 
     </TableRow>
 
@@ -87,20 +64,17 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Last name: "
-            android:textColor="@android:color/background_dark"
-            android:textStyle="bold" />
+            android:textColor="@color/colorAccent"
+            android:text="Last name: "/>
 
         <EditText
             android:id="@+id/edtLastName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="15dp"
-
+            android:hint="Enter your friend's last name"
             android:layout_weight="1"
-            android:hint="Enter your friend's last name" />
+
+            />
 
     </TableRow>
 
@@ -109,21 +83,18 @@
         android:layout_height="wrap_content">
 
         <TextView
+            android:text="Your friend's birthday:"
+            android:textColor="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:paddingRight="20dp"
-            android:text="Your friend's birthday:"
-            android:textColor="@android:color/background_dark"
-            android:textStyle="bold" />
+            android:paddingRight="20dp"/>
 
         <Button
             android:id="@+id/btnDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="select date"
-            android:textColorHint="@android:color/background_light"
-            android:textStyle="bold" />
+            />
 
     </TableRow>
 
@@ -135,10 +106,8 @@
         <TextView
             android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:text="Gender:"
             android:textColor="@color/colorAccent"
-            android:textStyle="bold" />
+            android:text="Gender:"/>
 
         <Spinner
             android:id="@+id/spinner"
@@ -148,26 +117,18 @@
         </Spinner>
     </TableRow>
 
+    <Button
+        android:id="@+id/btnAdd"
+        android:text="ADD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:layout_width="82dp"
-        android:layout_height="wrap_content"
-        android:text="ADD"
-        android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="false"
-        android:background="@color/colorPrimary"
-        android:cropToPadding="false"
-        app:srcCompat="@android:drawable/ic_menu_add" />
 
 
 </LinearLayout>

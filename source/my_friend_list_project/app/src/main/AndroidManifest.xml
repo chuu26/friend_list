@@ -19,4 +19,7 @@
         <activity android:name=".activity_add_new_friend"></activity>
     </application>
 
+    <uses-permission android:name="android.permission.READ_CALENDAR"/>
+    <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
+
 </manifest>
