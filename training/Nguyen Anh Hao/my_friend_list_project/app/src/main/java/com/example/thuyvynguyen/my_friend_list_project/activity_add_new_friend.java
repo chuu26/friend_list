@@ -121,6 +121,18 @@ public class activity_add_new_friend extends AppCompatActivity implements DatePi
         return currentDate; //19.12.2018
 
     }
+     public String getLastDay(){
+
+        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        return currentDate; 
+
+    }
+    public String getPreDay(){
+
+        String currentDate = DateFormat.getDateInstance().format(calendar.getTime());
+        return currentDate; 
+
+    }
 
 
     @Override
