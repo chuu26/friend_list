@@ -37,7 +37,7 @@ public class Date {
     }
 
     public String toString(){
-        return day + " " + month + " " + year;
+        return day + "-" + month + "-" + year;
     }
 
     //Check whether the date is birthday
