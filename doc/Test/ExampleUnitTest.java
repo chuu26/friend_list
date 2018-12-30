@@ -45,6 +45,32 @@ public class ExampleUnitTest {
         int year = MainActivity.date.getYear();
         assertEquals(this.year, year);
     }
+	
+	@Test
+    public void test_4(){
+        listCase.add("Check Fisrtname");
+        int year = MainActivity.person.getFisrtName();
+        assertEquals(this.fisrtname, fisrtname);
+    }
 
-
+	@Test
+    public void test_4(){
+        listCase.add("Check Fisrtname");
+        String fisrtname  = MainActivity.person.getFisrtName();
+        assertEquals(this.fisrtname, fisrtname);
+    }
+	
+	@Test
+    public void test_5(){
+        listCase.add("Check Middlename");
+        String middlename = MainActivity.person.getMiddleName();
+        assertEquals(this.middlename, middlename);
+    }
+	
+	@Test
+    public void test_6(){
+        listCase.add("Check Fisrtname");
+        String lastname = MainActivity.person.getLastName();
+        assertEquals(this.lastname, Lastname);
+    }
 }
