@@ -210,9 +210,7 @@ public class MainActivity extends AppCompatActivity {
                     setAdapter(arrayFemale);
                 }
 
-                if (key.contains("ABC")){
-                    setAdapter(arrayFriend);
-                }
+              
 
             }
 
